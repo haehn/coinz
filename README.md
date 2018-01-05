@@ -16,7 +16,8 @@ the default coins are bitcoin, bitcoin-gold, dash, ripple: https://haehn.github.
 
 you can also define your altfolio
 
-f.e., if you have 0.066342 bitcoin and 1.663599 dash it shows the altfolio in USD: https://haehn.github.io/coinz/?bitcoin=0.066342,dash=1.663599
+f.e., if you have 0.066342 bitcoin and 1.663599 dash it shows the altfolio in USD: 
+https://haehn.github.io/coinz/?bitcoin=0.066342,dash=1.663599
 
 ![Individual Configuration](https://haehn.github.io/coinz/gfx/altfolio.png)
 
