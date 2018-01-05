@@ -4,17 +4,23 @@ COINZ.RESPONSES = [];
 
 COINZ.get = function(coin) {
   
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
+  // altfolio support 
+  split_coin = coinz[c].split('=');
 
-      COINZ.RESPONSES.push(this.response);
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(split_coin, e) {
+
+    if (e.target.readyState == 4 && e.target.status == 200) {
+
+      e.target.response[0].altfolio_value = split_coin[1];
+
+      COINZ.RESPONSES.push(e.target.response);
       COINZ.update();
 
     }
-  };
+  }.bind(this, split_coin);
   xhttp.responseType = 'json';
-  xhttp.open("GET", COINZ.BASE.replace('$COIN$', coin), true);
+  xhttp.open("GET", COINZ.BASE.replace('$COIN$', split_coin[0]), true);
   xhttp.send();
 
 };
@@ -43,6 +49,7 @@ COINZ.update = function() {
     var coin_symbol = COINZ.RESPONSES[c][0]['symbol'];
     var coin_usd = COINZ.RESPONSES[c][0]['price_usd'];
     var coin_change_24h = COINZ.RESPONSES[c][0]['percent_change_24h'];
+    var altfolio_value = COINZ.RESPONSES[c][0]['altfolio_value'];
 
     // from http://www.jacklmoore.com/notes/rounding-in-javascript/
     coin_usd = Number(Math.round(coin_usd+'e2')+'e-2').toFixed(2);
@@ -54,7 +61,18 @@ COINZ.update = function() {
     }
 
     output += '<img src="https://files.coinmarketcap.com/static/img/coins/16x16/'+coin_id.toLowerCase()+'.png" align="baseline"></img>'
-    output += ' <font color="royalblue">' + coin_name + ' (' + coin_symbol + '):</font> ' + coin_usd + ' USD ' + coin_change_24h + '<br>';
+    output += ' <font color="royalblue">' + coin_name + ' (' + coin_symbol + '):</font> ' + coin_usd + ' USD ' + coin_change_24h;
+
+    if (typeof(altfolio_value) != 'undefined' && !isNaN(altfolio_value)) {
+
+      altfolio_value = parseFloat(altfolio_value)*coin_usd;
+      altfolio_value =  Number(Math.round(altfolio_value+'e2')+'e-2').toFixed(2);
+
+      output += ' <font color="gray">*' + altfolio_value + ' USD</font>';
+
+    }
+
+    output += '<br>';
 
   }
 
