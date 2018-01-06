@@ -12,6 +12,10 @@ the default coins are bitcoin, bitcoin-gold, dash, ripple: https://haehn.github.
 
 ![Individual Configuration](https://haehn.github.io/coinz/gfx/individual.png)
 
+.. and another one: https://haehn.github.io/coinz/?digitalnote,stellar,gulden
+
+![Alternative Configuration](https://haehn.github.io/coinz/gfx/alternative.png)
+
 ## altfolio support
 
 you can also define your altfolio
